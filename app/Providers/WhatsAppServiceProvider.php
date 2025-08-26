@@ -13,7 +13,9 @@ class WhatsAppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(WhatsAppService::class, function ($app) {
-            return new WhatsAppService();
+            $apiKey  = config('services.whatsapp.api_key');
+            $baseUrl = config('services.whatsapp.base_url');
+            return new WhatsAppService($apiKey, $baseUrl);
         });
     }
 

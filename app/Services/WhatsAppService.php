@@ -9,26 +9,18 @@ class WhatsAppService
 {
     protected $apiKey;
     protected $baseUrl;
-    protected $isProduction;
 
-    public function __construct()
+    public function __construct($apiKey = null, $baseUrl = null)
     {
-        $this->apiKey = env('WHATSAPP_API_KEY', 'YOUR_API_KEY_HERE');
-        $this->baseUrl = env('WHATSAPP_BASE_URL', 'https://api.fonnte.com');
-        $this->isProduction = env('APP_ENV') === 'production';
-        
-        // Log konfigurasi untuk debugging
-        Log::info('WhatsApp Service initialized', [
-            'base_url' => $this->baseUrl,
-            'is_production' => $this->isProduction,
-            'ssl_verify' => env('HTTP_VERIFY_SSL', true)
-        ]);
+        // Gunakan parameter yang diberikan atau fallback ke env
+        $this->apiKey = $apiKey ?? env('WHATSAPP_API_KEY', 'pcVcL8X67eTnbAnpFRzp');
+        $this->baseUrl = $baseUrl ?? env('WHATSAPP_BASE_URL', 'https://api.fonnte.com');
     }
 
     public function sendOTP($phoneNumber, $otpCode)
     {
         try {
-            // Format nomor telepon
+            // Format nomor telepon (hapus + jika ada dan tambahkan 62)
             $formattedPhone = $this->formatPhoneNumber($phoneNumber);
             
             $message = "🔐 *Kode OTP Academy Next Top Model*\n\n";
@@ -37,47 +29,14 @@ class WhatsAppService
             $message .= "Jangan bagikan kode ini kepada siapapun.\n\n";
             $message .= "Terima kasih telah bergabung dengan Academy Next Top Model!";
 
-            // Konfigurasi HTTP client dengan opsi yang sesuai untuk production
-            $httpClient = Http::withHeaders([
-                'Authorization' => $this->apiKey,
-                'User-Agent' => 'AcademyNTM/1.0',
-                'Accept' => 'application/json'
-            ]);
-
-            // Konfigurasi SSL dan timeout yang berbeda untuk production vs local
-            if ($this->isProduction) {
-                $httpClient = $httpClient->withOptions([
-                    'verify' => env('HTTP_VERIFY_SSL', true),
-                    'timeout' => 30,
-                    'connect_timeout' => 10
-                ]);
-            } else {
-                // Untuk localhost, bisa disable SSL verification jika perlu
-                $httpClient = $httpClient->withOptions([
-                    'verify' => env('HTTP_VERIFY_SSL', false),
-                    'timeout' => 15,
-                    'connect_timeout' => 5
-                ]);
-            }
-
-            Log::info('Sending WhatsApp OTP', [
-                'phone' => $formattedPhone,
-                'base_url' => $this->baseUrl,
-                'is_production' => $this->isProduction
-            ]);
-
-            $response = $httpClient->post($this->baseUrl . '/send', [
+            $response = Http::withHeaders([
+                'Authorization' => $this->apiKey
+                ])->withOptions([
+                    'verify' => env('HTTP_VERIFY_SSL', true) // set false di .env saat lokal bila perlu
+            ])->post($this->baseUrl . '/send', [
                 'target' => $formattedPhone,
                 'message' => $message,
                 'countryCode' => '62',
-            ]);
-
-            // Log response lengkap untuk debugging
-            Log::info('WhatsApp API Response', [
-                'status_code' => $response->status(),
-                'headers' => $response->headers(),
-                'body' => $response->body(),
-                'json' => $response->json()
             ]);
 
             if ($response->successful()) {
@@ -89,19 +48,14 @@ class WhatsAppService
             } else {
                 Log::error('WhatsApp OTP failed to send', [
                     'phone' => $formattedPhone,
-                    'status_code' => $response->status(),
-                    'response' => $response->json(),
-                    'error_body' => $response->body()
+                    'response' => $response->json()
                 ]);
                 return false;
             }
         } catch (\Exception $e) {
             Log::error('WhatsApp OTP error', [
                 'phone' => $phoneNumber,
-                'error' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'error' => $e->getMessage()
             ]);
             return false;
         }
@@ -123,32 +77,5 @@ class WhatsAppService
         }
         
         return $phone;
-    }
-
-    /**
-     * Test koneksi ke WhatsApp API
-     */
-    public function testConnection()
-    {
-        try {
-            $response = Http::withHeaders([
-                'Authorization' => $this->apiKey
-            ])->withOptions([
-                'verify' => env('HTTP_VERIFY_SSL', true),
-                'timeout' => 10
-            ])->get($this->baseUrl . '/device');
-
-            Log::info('WhatsApp API connection test', [
-                'status_code' => $response->status(),
-                'response' => $response->json()
-            ]);
-
-            return $response->successful();
-        } catch (\Exception $e) {
-            Log::error('WhatsApp API connection test failed', [
-                'error' => $e->getMessage()
-            ]);
-            return false;
-        }
     }
 } 

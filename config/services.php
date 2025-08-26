@@ -41,6 +41,11 @@ return [
     'redirect' => env('GOOGLE_REDIRECT_URI'),
 ],
 
+'whatsapp' => [
+        'api_key'   => env('WHATSAPP_API_KEY'),
+        'base_url'  => env('WHATSAPP_BASE_URL', 'https://api.fonnte.com'),
+    ],
+
 
 
 ];
