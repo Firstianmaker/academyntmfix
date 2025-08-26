@@ -13,7 +13,6 @@ return new class extends Migration
             $table->integer('id_model')->nullable();
             $table->integer('id_user')->nullable();
             $table->text('message')->nullable();
-            $table->timestamp('created_at')->useCurrent();
             $table->timestamps();
         });
     }
