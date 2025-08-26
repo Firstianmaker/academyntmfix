@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         // Seed default
         // panggil seeder untuk membuat akun model dari tabel models
-        $this->call(ModelUsersSeeder::class);
+        $this->call([
+            InitialDataSeeder::class,
+            ModelUsersSeeder::class,
+        ]);
     }
 }
