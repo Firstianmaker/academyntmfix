@@ -213,6 +213,17 @@
       margin: 0;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    .shadow-text {
+  font-family: 'Fondamento', cursive;
+  color: black;
+  font-weight: bold;
+  text-shadow:
+    -0.5px -0.5px 0 white,
+     0.5px -0.5px 0 white,
+    -0.5px  0.5px 0 white,
+     0.5px  0.5px 0 white;
+}
     
     .talent-card-link:hover .hover-lift {
       transform: translateY(-8px);
@@ -2073,7 +2084,7 @@
 
 
           <!-- Model Name -->
-          <div class="absolute bottom-2 p-1 left-2 font-semibold text-[22px] md:text-[24px] name-outline-light-bg">
+          <div class="absolute bottom-2 p-1 left-2 font-semibold text-[22px] md:text-[24px] font-[Fondamento] px-2 py-1 shadow-text">
             {{ explode(' ', $ft->talent->nama_model)[0] }}
           </div>
         </div>
@@ -2395,7 +2406,7 @@ fetch('/api/new-models')
         </a>
       </div>
       <div class="absolute left-2 bottom-2 z-10 font-['Newsreader'] text-black text-left">
-        <h3 class="text-[16px] sm:text-[22px] font-bold leading-none name-outline-light-bg">
+        <h3 class="text-[16px] sm:text-[22px] font-bold leading-none font-[Fondamento] px-2 py-1 shadow-text">
           {{ explode(' ', $model->nama_model)[0] }}
         </h3>
         <p class="text-[12px] sm:text-[13px] leading-none">
