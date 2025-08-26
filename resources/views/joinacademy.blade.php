@@ -9,10 +9,10 @@
 <body class="bg-black min-h-screen">
     @include('navbar')
 
-    <div class="min-h-screen flex items-center justify-center">
+    <div class="min-h-screen flex items-center justify-center mt-0 md:mt-0">
         <div class="min-h-screen flex flex-col md:flex-row">
             <!-- Left: Image -->
-            <div class="md:w-1/2 w-full h-[400px] md:h-auto">
+            <div class="md:w-1/2 w-full h-[520px] md:h-auto">
                 <img src="{{ asset('img/join.jpg') }}" alt="Join Academy" class="object-cover w-full h-full md:rounded-none rounded-b-2xl" />
             </div>
 
@@ -96,10 +96,10 @@
         menuOpen = !menuOpen;
         if (menuOpen) {
         mobileMenu.classList.remove('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-        mobileMenu.classList.add('max-h-[600px]', 'py-4', 'px-6');
+        mobileMenu.classList.add('max-h-[900px]', 'py-5', 'px-6');
         } else {
         mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-        mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
+        mobileMenu.classList.remove('max-h-[900px]', 'py-5', 'px-6');
         }
     });
 
@@ -108,7 +108,7 @@
         link.addEventListener('click', function() {
         menuOpen = false;
         mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-        mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
+        mobileMenu.classList.remove('max-h-[900px]', 'py-5', 'px-6');
         });
     });
     </script>
