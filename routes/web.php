@@ -82,6 +82,28 @@ Route::get('/api/new-models', [\App\Http\Controllers\Api\TalentController::class
 
 
 
+// Health check endpoint untuk WhatsApp
+Route::get('/health/whatsapp', function () {
+    try {
+        $service = app(\App\Services\WhatsAppService::class);
+        $status = $service->testConnection();
+        
+        return response()->json([
+            'status' => $status ? 'healthy' : 'unhealthy',
+            'timestamp' => now(),
+            'environment' => env('APP_ENV', 'unknown'),
+            'whatsapp_provider' => env('WHATSAPP_PROVIDER', 'unknown'),
+            'ssl_verify' => env('HTTP_VERIFY_SSL', true)
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'timestamp' => now()
+        ], 500);
+    }
+})->name('health.whatsapp');
+
 // Endpoint statistik visitor untuk grafik
 Route::get('/admin/visitor-stats', function () {
     // Hapus user yang sudah tidak aktif (lebih dari 30 menit)
