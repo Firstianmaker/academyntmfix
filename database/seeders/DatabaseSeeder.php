@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seed default
-        // panggil seeder untuk membuat akun model dari tabel models
         $this->call([
-            InitialDataSeeder::class,
-            ModelUsersSeeder::class,
+            UsersTableSeeder::class,
+            ModelsTableSeeder::class,
+            BookingsTableSeeder::class,
+            PortfoliosTableSeeder::class,
+            AwardsTableSeeder::class,
+            CareersTableSeeder::class,
+            OtpsTableSeeder::class,
+            FeaturedTalentsTableSeeder::class,
+            OurTalentsTableSeeder::class,
+            PopularTalentsTableSeeder::class,
+            SessionsTableSeeder::class,
+            VisitorTableSeeder::class,
         ]);
     }
 }
