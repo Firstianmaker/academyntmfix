@@ -368,7 +368,7 @@
 			@endif
 		@endauth
 		<!-- Dropdown Bahasa dengan Alpine.js -->
-		<li class="relative language-dropdown" x-data="{ open: false }" @click.away="open = false">
+		<li class="relative language-dropdown z-[10056]" x-data="{ open: false }" @click.away="open = false">
 			<button @click="open = !open; console.log('Mobile dropdown clicked, open:', open)"
 				class="flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:bg-white hover:text-black font-medium focus:outline-none nav-link-hover"
 				style="cursor: pointer;">
@@ -388,7 +388,7 @@
 			
 			<!-- Dropdown -->
 			<ul x-show="open" 
-				class="absolute left-0 mt-2 w-36 bg-white rounded-lg shadow-xl py-2 z-[9999] border border-gray-200"
+				class="absolute left-0 mt-2 w-36 bg-white rounded-lg shadow-xl py-2 z-[10060] border border-gray-200"
 				x-cloak
 				style="min-width: 144px;">
 				<li>
@@ -536,6 +536,42 @@
 				hamburgerBtn.style.transform = 'scale(1)';
 			});
 		}
+
+		// Mobile language dropdown: elevate above viewport when open
+		(function setupMobileLangDropdown(){
+			const listItem = document.querySelector('#mobileMenu .language-dropdown');
+			const button = listItem?.querySelector('button');
+			const dropdown = document.getElementById('mobile-lang-dropdown');
+			if (!listItem || !button || !dropdown) return;
+
+			let isFixed = false;
+			function openAsFixed(){
+				const rect = button.getBoundingClientRect();
+				dropdown.style.position = 'fixed';
+				dropdown.style.left = `${rect.left}px`;
+				dropdown.style.top = `${rect.bottom + 8}px`;
+				dropdown.style.width = `${rect.width}px`;
+				dropdown.style.zIndex = '10070';
+				isFixed = true;
+			}
+			function restorePosition(){
+				dropdown.style.position = 'absolute';
+				dropdown.style.left = '';
+				dropdown.style.top = '';
+				dropdown.style.width = '';
+				dropdown.style.zIndex = '';
+				isFixed = false;
+			}
+			function sync(){
+				if (!dropdown || dropdown.hasAttribute('x-cloak')) return;
+				const isVisible = getComputedStyle(dropdown).display !== 'none' && dropdown.offsetParent !== null;
+				if (isVisible) openAsFixed(); else restorePosition();
+			}
+			const obs = new MutationObserver(sync);
+			obs.observe(dropdown, { attributes: true, attributeFilter: ['style','class'] });
+			['scroll','resize','orientationchange'].forEach(ev => window.addEventListener(ev, () => { if (isFixed) openAsFixed(); }));
+			button.addEventListener('click', () => setTimeout(sync, 0));
+		})();
 
 		// Enhanced smooth scrolling for navbar links
 		const navbarLinks = document.querySelectorAll('a[href^="/#"]');

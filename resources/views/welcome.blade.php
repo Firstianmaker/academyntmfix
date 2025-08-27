@@ -1956,7 +1956,7 @@
     <div class="flex flex-col lg:flex-row justify-center items-center lg:gap-[120px] gap-[60px]">
       
       <!-- Left Column -->
-      <div class="grid grid-cols-2 gap-4 lg:flex lg:flex-col" data-scroll-animation="fade-in-left" data-delay="200">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-col" data-scroll-animation="fade-in-left" data-delay="200">
         @php
           $leftCards = [
             ['img' => 'img/talent/model1.png', 'title' => __('messages.talent_meet'), 'link' => '#meet-our-talents-section'],
@@ -1966,7 +1966,7 @@
 
         @foreach($leftCards as $index => $card)
         <a href="{{ $card['link'] }}" class="talent-card-link block w-full max-w-[280px] transition-all duration-300 hover:scale-105">
-          <div class="relative w-full h-[350px] rounded-[20px] overflow-hidden hover-lift" data-scroll-animation="scale-in" data-delay="{{ 300 + ($index * 100) }}">
+          <div class="relative w-full h-[260px] md:h-[350px] rounded-[20px] overflow-hidden hover-lift" data-scroll-animation="scale-in" data-delay="{{ 300 + ($index * 100) }}">
             <img src="{{ asset($card['img']) }}" alt="{{ $card['title'] }}" class="w-full h-full object-cover block rounded-[20px] animate-float">
             <div class="absolute top-0 left-0 right-0 p-[15px] flex justify-between items-start">
               <span class="font-['Newsreader'] text-[18px] lg:text-[22px] z-10 max-w-[150px] leading-tight text-stroke-white">{{ $card['title'] }}</span>
@@ -1986,7 +1986,7 @@
           <p class="font-['Fondamento'] text-white text-[50px] md:text-[60px] lg:text-[70px] leading-none tracking-wider -mt-2 animate-pulse-slow">{{ __('messages.talent_talents') }}</p>
         </div>
         <a href="#new-models" class="talent-card-link block w-full max-w-[320px] transition-all duration-300 hover:scale-105">
-          <div class="relative w-full h-[400px] rounded-[20px] overflow-hidden hover-lift" data-scroll-animation="scale-in" data-delay="600">
+          <div class="relative w-full h-[320px] md:h-[400px] rounded-[20px] overflow-hidden hover-lift" data-scroll-animation="scale-in" data-delay="600">
             <img src="{{ asset('img/talent/model3.jpg') }}" alt="{{ __('messages.talent_new') }}" class="w-full h-full object-cover block rounded-[20px] animate-float">
             <div class="absolute top-0 left-0 right-0 p-[15px] flex justify-between items-start">
               <span class="font-['Newsreader'] text-[18px] z-10 max-w-[150px] leading-tight text-stroke-white">{{ __('messages.talent_new') }}</span>
@@ -2000,7 +2000,7 @@
       </div>
 
       <!-- Right Column -->
-      <div class="grid grid-cols-2 gap-4 lg:flex lg:flex-col" data-scroll-animation="fade-in-right" data-delay="200">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:flex-col" data-scroll-animation="fade-in-right" data-delay="200">
         @php
           $rightCards = [
             ['img' => 'img/talent/model4.jpg', 'title' => __('messages.talent_explore'), 'link' => url('/models')],
@@ -2010,7 +2010,7 @@
 
         @foreach($rightCards as $index => $card)
         <a href="{{ $card['link'] }}" class="talent-card-link block w-full max-w-[280px] transition-all duration-300 hover:scale-105">
-          <div class="relative w-full h-[350px] rounded-[20px] overflow-hidden hover-lift" data-scroll-animation="scale-in" data-delay="{{ 300 + ($index * 100) }}">
+          <div class="relative w-full h-[260px] md:h-[350px] rounded-[20px] overflow-hidden hover-lift" data-scroll-animation="scale-in" data-delay="{{ 300 + ($index * 100) }}">
             <img src="{{ asset($card['img']) }}" alt="{{ $card['title'] }}" class="w-full h-full object-cover block rounded-[20px] animate-float">
             <div class="absolute top-0 left-0 right-0 p-[15px] flex justify-between items-start">
               <span class="font-['Newsreader'] text-[18px] z-10 max-w-[150px] leading-tight text-stroke-white">{{ $card['title'] }}</span>
@@ -2681,10 +2681,10 @@ function showBenefits(type) {
     menuOpen = !menuOpen;
     if (menuOpen) {
       mobileMenu.classList.remove('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.add('max-h-[600px]', 'py-4', 'px-6');
+      mobileMenu.classList.add('max-h-[900px]', 'py-4', 'px-6');
     } else {
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
     }
   });
 
@@ -2693,7 +2693,7 @@ function showBenefits(type) {
     link.addEventListener('click', function() {
       menuOpen = false;
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
     });
   });
 
