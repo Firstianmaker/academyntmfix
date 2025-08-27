@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	@include('partials.favicon')
 	<title>Academy NTM</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -271,11 +272,55 @@
 		<img src="{{ asset('img/logo.jpg') }}" alt="Logo" class="h-16">
 	</div>
 	<!-- Hamburger (mobile & tablet) -->
-	<button id="hamburgerBtn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none hamburger-animate" aria-label="Open Menu">
-		<span class="block w-7 h-0.5 bg-white mb-1"></span>
-		<span class="block w-7 h-0.5 bg-white mb-1"></span>
-		<span class="block w-7 h-0.5 bg-white"></span>
-	</button>
+		<!-- Hamburger (mobile & tablet) -->
+
+	<!-- Kontainer aksi mobile: dropdown bahasa + hamburger (kanan) -->
+	<div class="md:hidden ml-auto flex items-center gap-3">
+		<!-- Language dropdown mobile (sebelah hamburger) -->
+		<div class="relative language-dropdown" x-data="{ open: false }" @click.away="open = false">
+			<button @click="open = !open"
+				class="flex items-center gap-2 px-3 py-2 text-white rounded-lg hover:bg-white hover:text-black font-medium focus:outline-none"
+				style="cursor:pointer;">
+				<span class="inline-block w-5 h-5 rounded-full overflow-hidden align-middle">
+					<img src="https://flagcdn.com/24x18/gb.png" alt="English"
+						class="w-5 h-5 rounded-full border border-gray-300"
+						style="display: {{ app()->getLocale() == 'en' ? 'inline' : 'none' }};" />
+					<img src="https://flagcdn.com/24x18/id.png" alt="Indonesia"
+						class="w-5 h-5 rounded-full border border-gray-300"
+						style="display: {{ app()->getLocale() == 'id' ? 'inline' : 'none' }};" />
+				</span>
+				<span>{{ strtoupper(app()->getLocale()) }}</span>
+				<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+				</svg>
+			</button>
+			<ul x-show="open" x-cloak
+				class="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-xl py-2 z-[9999] border border-gray-200">
+				<li>
+					<a href="{{ route('lang.switch', 'en') }}" class="flex items-center gap-2 px-4 py-2 text-black hover:bg-gray-100">
+						<img src="https://flagcdn.com/24x18/gb.png" class="w-5 h-5 rounded-full border border-gray-300" alt="English">
+						English
+					</a>
+				</li>
+				<li>
+					<a href="{{ route('lang.switch', 'id') }}" id="indonesia-link-mobile"
+						class="flex items-center gap-2 px-4 py-2 text-black hover:bg-gray-100">
+						<img src="https://flagcdn.com/24x18/id.png" class="w-5 h-5 rounded-full border border-gray-300" alt="Indonesia">
+						Indonesia
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Hamburger (mobile & tablet) -->
+		<button id="hamburgerBtn" class="flex flex-col justify-center items-center w-10 h-10 focus:outline-none hamburger-animate" aria-label="Open Menu">
+			<span class="block w-7 h-0.5 bg-white mb-1"></span>
+			<span class="block w-7 h-0.5 bg-white mb-1"></span>
+			<span class="block w-7 h-0.5 bg-white"></span>
+		</button>
+	</div>
+
+	
 	<!-- Menu Desktop -->
 	<nav class="hidden md:block flex-1">
 		<ul class="flex list-none gap-1.5 items-center text-sm tracking-wider justify-center">
@@ -367,52 +412,7 @@
 				<li><a href="{{ url('/admin') }}" class="text-white block px-4 py-2 rounded-lg hover:bg-white hover:text-black font-medium nav-link-hover">{{ __('messages.admin') }}</a></li>
 			@endif
 		@endauth
-		<!-- Dropdown Bahasa dengan Alpine.js -->
-		<li class="relative language-dropdown z-[10056]" x-data="{ open: false }" @click.away="open = false">
-			<button @click="open = !open; console.log('Mobile dropdown clicked, open:', open)"
-				class="flex items-center gap-2 px-4 py-2 text-white rounded-lg hover:bg-white hover:text-black font-medium focus:outline-none nav-link-hover"
-				style="cursor: pointer;">
-				<span class="inline-block w-5 h-5 rounded-full overflow-hidden align-middle">
-					<img src="https://flagcdn.com/24x18/gb.png" alt="English"
-						class="w-5 h-5 rounded-full border border-gray-300"
-						style="display: {{ app()->getLocale() == 'en' ? 'inline' : 'none' }};" />
-					<img src="https://flagcdn.com/24x18/id.png" alt="Indonesia"
-						class="w-5 h-5 rounded-full border border-gray-300"
-						style="display: {{ app()->getLocale() == 'id' ? 'inline' : 'none' }};" />
-				</span>
-				<span>{{ strtoupper(app()->getLocale()) }}</span>
-				<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-				</svg>
-			</button>
-			
-			<!-- Dropdown -->
-			<ul x-show="open" 
-				class="absolute left-0 mt-2 w-36 bg-white rounded-lg shadow-xl py-2 z-[10060] border border-gray-200"
-				x-cloak
-				style="min-width: 144px;">
-				<li>
-					<a href="{{ route('lang.switch', 'en') }}" onclick="console.log('Mobile: Switching to English')"
-						class="flex items-center gap-2 px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-200"
-						style="text-decoration: none; display: block;">
-						<img src="https://flagcdn.com/24x18/gb.png" alt="English"
-							class="w-5 h-5 rounded-full border border-gray-300" />
-						English
-					</a>
-				</li>
-				<li>
-					<a href="{{ route('lang.switch', 'id') }}" 
-						onclick="console.log('Mobile: Switching to Indonesia'); console.log('Mobile Link href:', this.href);"
-						class="flex items-center gap-2 px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-200"
-						style="text-decoration: none; display: block; cursor: pointer; pointer-events: auto;"
-						id="indonesia-link-mobile">
-						<img src="https://flagcdn.com/24x18/id.png" alt="Indonesia"
-							class="w-5 h-5 rounded-full border border-gray-300" />
-						Indonesia
-					</a>
-				</li>
-			</ul>
-		</li>
+
 		
 	</ul>
 	<div class="flex gap-2 mt-2">
@@ -536,42 +536,6 @@
 				hamburgerBtn.style.transform = 'scale(1)';
 			});
 		}
-
-		// Mobile language dropdown: elevate above viewport when open
-		(function setupMobileLangDropdown(){
-			const listItem = document.querySelector('#mobileMenu .language-dropdown');
-			const button = listItem?.querySelector('button');
-			const dropdown = document.getElementById('mobile-lang-dropdown');
-			if (!listItem || !button || !dropdown) return;
-
-			let isFixed = false;
-			function openAsFixed(){
-				const rect = button.getBoundingClientRect();
-				dropdown.style.position = 'fixed';
-				dropdown.style.left = `${rect.left}px`;
-				dropdown.style.top = `${rect.bottom + 8}px`;
-				dropdown.style.width = `${rect.width}px`;
-				dropdown.style.zIndex = '10070';
-				isFixed = true;
-			}
-			function restorePosition(){
-				dropdown.style.position = 'absolute';
-				dropdown.style.left = '';
-				dropdown.style.top = '';
-				dropdown.style.width = '';
-				dropdown.style.zIndex = '';
-				isFixed = false;
-			}
-			function sync(){
-				if (!dropdown || dropdown.hasAttribute('x-cloak')) return;
-				const isVisible = getComputedStyle(dropdown).display !== 'none' && dropdown.offsetParent !== null;
-				if (isVisible) openAsFixed(); else restorePosition();
-			}
-			const obs = new MutationObserver(sync);
-			obs.observe(dropdown, { attributes: true, attributeFilter: ['style','class'] });
-			['scroll','resize','orientationchange'].forEach(ev => window.addEventListener(ev, () => { if (isFixed) openAsFixed(); }));
-			button.addEventListener('click', () => setTimeout(sync, 0));
-		})();
 
 		// Enhanced smooth scrolling for navbar links
 		const navbarLinks = document.querySelectorAll('a[href^="/#"]');

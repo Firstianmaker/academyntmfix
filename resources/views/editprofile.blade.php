@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  @include('partials.favicon')
   <title>{{ __('messages.editprofile_title') }}</title>
   <link href="https://fonts.googleapis.com/css2?family=Fondamento&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -119,10 +120,10 @@
     menuOpen = !menuOpen;
     if (menuOpen) {
       mobileMenu.classList.remove('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.add('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.add('max-h-[600px]', 'py-4', 'px-6');
     } else {
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
     }
   });
 
@@ -131,7 +132,7 @@
     link.addEventListener('click', function() {
       menuOpen = false;
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
     });
   });
 </script>

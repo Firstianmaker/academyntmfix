@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  @include('partials.favicon')
   <title>Academy Next Top Model</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <!-- Font + Tailwind -->
   <link href="https://fonts.googleapis.com/css2?family=Fondamento&family=Newsreader:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <!-- PhotoSwipe CSS -->
@@ -594,10 +594,10 @@
     menuOpen = !menuOpen;
     if (menuOpen) {
       mobileMenu.classList.remove('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.add('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.add('max-h-[600px]', 'py-4', 'px-6');
     } else {
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
     }
   });
 
@@ -606,7 +606,7 @@
     link.addEventListener('click', function() {
       menuOpen = false;
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
     });
   });
 </script>
