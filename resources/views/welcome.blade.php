@@ -2681,10 +2681,10 @@ function showBenefits(type) {
     menuOpen = !menuOpen;
     if (menuOpen) {
       mobileMenu.classList.remove('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.add('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.add('max-h-[600px]', 'py-4', 'px-6');
     } else {
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
     }
   });
 
@@ -2693,7 +2693,7 @@ function showBenefits(type) {
     link.addEventListener('click', function() {
       menuOpen = false;
       mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-      mobileMenu.classList.remove('max-h-[900px]', 'py-4', 'px-6');
+      mobileMenu.classList.remove('max-h-[600px]', 'py-4', 'px-6');
     });
   });
 
