@@ -355,7 +355,7 @@
 </header>
 <hr class="border-t border-gray-700 shadow-sm m-0 p-0">
 <!-- Mobile/Tablet Dropdown Menu -->
-<div id="mobileMenu" class="w-full bg-black shadow-lg py-0 px-0 flex flex-col gap-5 md:hidden transition-all duration-300 max-h-0 overflow-hidden pointer-events-none font-['Open_Sans']">
+<div id="mobileMenu" class="w-full bg-black shadow-lg py-0 px-0 flex flex-col gap-4 md:hidden transition-all duration-300 max-h-0 overflow-hidden pointer-events-none font-['Open_Sans']">
 	<ul class="flex flex-col gap-2">
 		<li><a href="{{ url('/') }}" class="text-white block px-4 py-2 rounded-lg hover:bg-white hover:text-black font-medium nav-link-hover">{{ __('messages.home') }}</a></li>
 		<li><a href="{{ url('/#aboutus') }}" class="text-white block px-4 py-2 rounded-lg hover:bg-white hover:text-black font-medium nav-link-hover">{{ __('messages.about_us') }}</a></li>
@@ -605,32 +605,6 @@
 				}
 			});
 		});
-
-		// Toggle mobile menu (ensure enough height for language dropdown)
-		const hamburgerBtn = document.getElementById('hamburgerBtn');
-		const mobileMenu = document.getElementById('mobileMenu');
-		if (hamburgerBtn && mobileMenu) {
-			let menuOpen = false;
-			hamburgerBtn.addEventListener('click', () => {
-				menuOpen = !menuOpen;
-				if (menuOpen) {
-					mobileMenu.classList.remove('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-					mobileMenu.classList.add('max-h-[1100px]', 'py-5', 'px-6');
-				} else {
-					mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-					mobileMenu.classList.remove('max-h-[1100px]', 'py-5', 'px-6');
-				}
-			});
-
-			// Close when any mobile link is clicked
-			mobileMenu.querySelectorAll('a').forEach(link => {
-				link.addEventListener('click', () => {
-					menuOpen = false;
-					mobileMenu.classList.add('max-h-0', 'pointer-events-none', 'py-0', 'px-0');
-					mobileMenu.classList.remove('max-h-[1100px]', 'py-5', 'px-6');
-				});
-			});
-		}
 
 		// Logout confirmation modal
 		let pendingLogoutFormId = null;
